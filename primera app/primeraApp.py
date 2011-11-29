@@ -13,7 +13,9 @@ class dragBoton(QtGui.QPushButton):
         def mouseMoveEvent(self, e):
                 
                 mimedata = QtCore.QMimeData()
-                
+
+                self.setCursor(QtGui.QCursor(QtCore.Qt.ClosedHandCursor))
+                                
                 drag = QtGui.QDrag(self)
                                 
                 pixmap = QtGui.QPixmap("thumb_icon.png")
@@ -21,8 +23,8 @@ class dragBoton(QtGui.QPushButton):
                 drag.setPixmap(pixmap)
                 drag.setMimeData(mimedata)
                 drag.setHotSpot(e.pos() - self.rect().topLeft())
-
                 dropAction = drag.start(QtCore.Qt.MoveAction)
+                
 
                 
 
@@ -79,8 +81,10 @@ class claseWidget(QtGui.QWidget):
                         event.ignore()
 
         def dragEnterEvent(self, e):
-
+                
                 e.accept()
+                self.setCursor(QtGui.QCursor(QtCore.Qt.OpenHandCursor))
+                
 
         def dropEvent(self, e):
                 position = e.pos()
