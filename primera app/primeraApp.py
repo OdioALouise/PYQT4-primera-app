@@ -25,9 +25,9 @@ class dragBoton(QtGui.QPushButton):
                 drag.setHotSpot(e.pos() - self.rect().topLeft())
                 dropAction = drag.start(QtCore.Qt.MoveAction)
 
-        def clickado(self, e):
+        def clickado(self):
                 QtGui.QMessageBox.question(self, 'Mensaje', "¿Esta seguro de cerrar la aplicacion?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
-                
+                self.setDisabled(True)
 
                 
 
@@ -43,8 +43,9 @@ class claseWidget(QtGui.QWidget):
         def initUI(self):
 
                 self.setAcceptDrops(True)
-                
 
+                iP = QtGui.QPixmap("thumb_icon.png")
+                
                 
                 self.button = dragBoton('Boton', self)
                 self.button.move(100, 65)
@@ -55,7 +56,7 @@ class claseWidget(QtGui.QWidget):
                 self.button2.move(100, 105)
                 self.button2.setToolTip('Pozo')
                 self.button2.setIcon(QtGui.QIcon('DotIcon.png'))
-                QtCore.QObject.connect(self.button2, QtCore.SIGNAL('clicked()'), self.button2.clickado)
+                self.button2.clicked.connect(self.button2.clickado)
 
                 
         
@@ -104,6 +105,8 @@ class claseWidget(QtGui.QWidget):
                 e.setDropAction(QtCore.Qt.MoveAction)
                 e.accept()
                 
+        
+                
                                 
 def main():
 
@@ -120,7 +123,7 @@ def main():
          ex = claseWidget()
          ex.show()
          app.exec_()
-         #sys.exit(app.exec_())
+         sys.exit(app.exec_())
          
 if __name__ == "__main__":
         main()
