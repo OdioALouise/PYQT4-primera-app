@@ -20,6 +20,9 @@ from PyQt4 import QtCore
 
 
 class Button(QtGui.QPushButton):
+ 
+    iconoUrl = "" 
+ 
   
     def __init__(self, title, parent):
         super(Button, self).__init__(title, parent)
@@ -30,10 +33,16 @@ class Button(QtGui.QPushButton):
             return
 
         mimeData = QtCore.QMimeData()
+ 
+        drag = QtGui.QDrag(self)
+                                
+        pixmap = QtGui.QPixmap(self.iconoUrl)
 
         drag = QtGui.QDrag(self)
+        drag.setPixmap(pixmap)
         drag.setMimeData(mimeData)
-        #drag.setHotSpot(e.pos() - self.rect().topLeft())
+        drag.setHotSpot(e.pos() - self.rect().topLeft())
+ 
 
         dropAction = drag.start(QtCore.Qt.MoveAction)
 
@@ -42,7 +51,9 @@ class Button(QtGui.QPushButton):
       
         QtGui.QPushButton.mousePressEvent(self, e)
         if e.button() == QtCore.Qt.LeftButton:
-            print 'press'
+ 
+            print 'press' + self.iconoUrl
+ 
 
 
 class Example(QtGui.QWidget):
@@ -56,9 +67,17 @@ class Example(QtGui.QWidget):
 
         self.setAcceptDrops(True)
 
-        self.button = Button('Button', self)
+ 
+        self.button = Button('Button2', self)
+        self.button.iconoUrl = "DotIcon.png"
         self.button.move(100, 65)
 
+        self.button2 = Button('Button1', self)
+        self.button2.iconoUrl = "thumb_icon.png"
+        self.button2.move(100, 105)
+
+        
+ 
         self.setWindowTitle('Click or Move')
         self.setGeometry(300, 300, 280, 150)
 
