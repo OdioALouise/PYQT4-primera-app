@@ -15,13 +15,22 @@ class delegado(QtGui.QAbstractItemDelegate):
         print "hola"
 
     def createEditor(parentWidget, qstyleOption, qModelIndex):
+
+         editor = QSpinBox(parent)
+         editor.setMinimum(0)
+         editor.setMaximum(100)
+
+         return editor
+
         
 
     def setEditorData(widgetEditor, qModelIndex):
+        print "hola"
         
         
     def setModelData(widgetEditor, qAItemModel, qModelIndex):
+        print "hola"
         
 
     def updateEditorGeometry(widgetEditor, qStyleOption, qModelindex):
-        
+        print "hola"
