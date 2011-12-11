@@ -23,7 +23,8 @@ class modelo(QtCore.QAbstractItemModel):
         for nombre, asociacion in (
             ("Rampla Juniors", "AUF"),
             ("Los Sauces", "OFI"),
-            ("Tacuarembo FC", "AUF")):
+            ("Tacuarembo FC", "AUF"),
+            ("Sportivo San Felix", "Surena")):
             self.lista.append(equipo(nombre, asociacion))
 
 
@@ -53,9 +54,29 @@ class modelo(QtCore.QAbstractItemModel):
 
             return QtCore.QVariant(value.nombre)
 
-    def index(row, column, parent = QtCore.QModelIndex()):
-        return QtCore.QAbstractItemModel.createIndex(row, column, object = 0)
+    def index(self, row, column, parent = QtCore.QModelIndex()):
+        
+        return self.createIndex(row, column, 0)
 
+    def parent(self, hijo):            
+
+        child_id = hijo.internalId()
+        print child_id
+
+        #if child_id == 0:
+        return QtCore.QModelIndex()
+        """
+        item_id = self.parent_ids[child_id]
+        
+        if item_id == 0 :
+            return self.createIndex(0, 0, item_id)
+
+        parent_id = self.parent_ids[item_id]
+        
+        row = self.dir_children_ids[parent_id].index(item_id)
+        
+        return self.createIndex(row, 0, item_id)
+        """
 
 class delegado(QtGui.QAbstractItemDelegate):
 
@@ -117,15 +138,29 @@ if __name__ == "__main__":
 
        print valor.toString()
     
-    """
-    dialog = dialogo()
-    dialog.open()
-    """
+    
+    #dialog = dialogo()
+      
+    #dialog.open()
+    
+    vista2 = QtGui.QTableView()
+    
     vista1 = QtGui.QTreeView()
+
+    vista3 = QtGui.QListView()
+
+    vista1.setModel(m)
+
+    vista2.setModel(m)
+
+    vista3.setModel(m)
     
     vista1.show()
 
-    vista1.setModel(m)
+    vista2.show()
+
+    vista3.show()
+
 
 
     sys.exit(app.exec_())
