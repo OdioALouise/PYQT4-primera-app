@@ -1,11 +1,32 @@
 from PyQt4 import QtCore, QtGui
+import sys
 
 class modelo(QtCore.QAbstractItemModel):
-    atributo1 = "atributo11"
-    atributo2 = "atributo22"
 
     def __init__(self):
-        print "Objeto creado"
+        atributo1 = "atributo11"
+        atributo2 = "atributo22"
+        lista = []
+        lista.append(atributo1)
+        lista.append(atributo2)
+        
+    def flags(self, index):
+        return QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
+
+    def rowCount(self, parent = QtCore.QModelIndex()):
+        return len(self.lista)
+
+
+    def data(self, index, role):
+
+        if role==QtCore.Qt.ToolTipRole:
+            return "Codigo Hex: " + self.lista[index.row()].name()
+
+       
+        if role == QtCore.Qt.DisplayRole:
+            row = index.row()
+            value = self.lista[row]
+            return value.name()            
 
 
 class delegado(QtGui.QAbstractItemDelegate):
@@ -38,10 +59,39 @@ class delegado(QtGui.QAbstractItemDelegate):
     def updateEditorGeometry(widgetEditor, qStyleOption, qModelindex):
         print "hola"
 
+class dialogo(QtGui.QDialog):
+    def __init__(self):
+        super(dialogo, self).__init__(parent = None)
+        self.init()
+
+    def init(self):
+        self.setWindowTitle("Dialogo")
+        self.setGeometry(250, 90, 500, 500)
+
+        self.address = QtGui.QLineEdit("Escriba su direccion", parent = self)
+        self.address.setMaxLength(20)
+        self.address.move(90, 100)
 
 if __name__ == "__main__":
 
-    dd = "objeto"
-    d = delegado(dd)
+    app = QtGui.QApplication(sys.argv)
 
-    print "hola"
+    data= QtCore.QStringList()
+    data << "uno" << "dos"
+    
+    m = modelo()
+
+    """
+    dialog = dialogo()
+    dialog.open()
+    """
+    vista1=QtGui.QListView()
+    
+    vista1.show()
+
+    vista1.setModel(data)
+
+
+    sys.exit(app.exec_())
+
+    
