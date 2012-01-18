@@ -1,5 +1,6 @@
+##! /usr/bin/python
 #Primera aplicacion  en python con pyqt
-#Importamos la libreria del sistema, para conocer parámetros de arranque
+#Importamos la libreria del sistema, para conocer parametros de arranque
 #Importamos librerias de qt
 import sys 
 from PyQt4 import QtCore, QtGui
@@ -26,7 +27,7 @@ class dragBoton(QtGui.QPushButton):
                 dropAction = drag.start(QtCore.Qt.MoveAction)
 
         def clickado(self):
-                QtGui.QMessageBox.question(self, 'Mensaje', "¿Esta seguro de cerrar la aplicacion?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                QtGui.QMessageBox.question(self, 'Mensaje', "Esta seguro de cerrar la aplicacion?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
                 self.setDisabled(True)
 
                 
@@ -66,11 +67,11 @@ class claseWidget(QtGui.QWidget):
                 
                 #Creamos un boton placebo
                 btn = QtGui.QPushButton('Crear Dominio', self)
-                btn.setToolTip('Botón para crear dominio')
+                btn.setToolTip('Boton para crear dominio')
                 btn.resize(btn.sizeHint())
                 btn.move(50, 50)
                 
-                #Creamos un botón para cerrar
+                #Creamos un boton para cerrar
                 qbtn = QtGui.QPushButton('Quit', self)
                 qbtn.resize(qbtn.sizeHint())
                 qbtn.move(200, 200)
@@ -85,7 +86,7 @@ class claseWidget(QtGui.QWidget):
 
         def closeEvent(self, event):
                 
-                reply = QtGui.QMessageBox.question(self, 'Mensaje', "¿Esta seguro de cerrar la aplicacion?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
+                reply = QtGui.QMessageBox.question(self, 'Mensaje', "Esta seguro de cerrar la aplicacion?", QtGui.QMessageBox.Yes | QtGui.QMessageBox.No, QtGui.QMessageBox.No)
 
                 if reply == QtGui.QMessageBox.Yes:
                         event.accept()
